@@ -3,7 +3,7 @@ package lab18;
 import java.util.Scanner;
 
 public class Minesweeper {
-
+	
 	/**
 	 * Kreira praznu matricu koja čini polje za igru
 	 * @return polje
@@ -155,8 +155,8 @@ public class Minesweeper {
 		do
 		{
 			System.out.println("Unesite koordinate: ");
-			x = unos.nextInt();
-			y = unos.nextInt();
+			x = unos.nextInt()-1;
+			y = unos.nextInt()-1;
 			laznoPolje[x][y] = matrica[x][y];
 			if (matrica[x][y] == -1)
 			{
@@ -179,6 +179,9 @@ public class Minesweeper {
 	
 
 	public static void main(String[] args) {
+		System.out.println("Dobrodošli u Minesweeper! Cilj igre je otkriti sva polja na tabeli koja nemaju mine.");
+		System.out.println("Unesite koordinate polja na koje želite odigrati i pazite da ne stanete na minu.");
+		System.out.println("Vodite računa da koordinate moraju biti od 1 do 5.\n");
 		int[][] matrica = napraviPolje();
 		igra(matrica);
 	}
