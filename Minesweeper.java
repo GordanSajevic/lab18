@@ -2,7 +2,7 @@ package lab18;
 
 import java.util.Scanner;
 
-public class Mineswipper {
+public class Minesweeper {
 
 	public static int[][] poljeZaIgru()
 	{
