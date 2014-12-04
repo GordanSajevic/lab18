@@ -9,9 +9,9 @@ public class Minesweeper {
 	 * @return polje
 	 */
 	
-	public static int[][] poljeZaIgru(int visina)
+	public static int[][] poljeZaIgru(int visina, int sirina)
 	{
-		int[][] polje = new int[visina][visina];
+		int[][] polje = new int[visina][sirina];
 		return polje;
 	}
 	
@@ -131,11 +131,14 @@ public class Minesweeper {
 	public static int[][] napraviPolje()
 	{
 		Scanner unos = new Scanner(System.in);
-		System.out.println("Unesite dimenziju stranice polja za igru. ");
+		System.out.println("Unesite dimenzije polja za igru. ");
+		System.out.println("Unesite visinu polja: ");
 		int visina = unos.nextInt();
+		System.out.println("Unesite sirinu polja: ");
+		int sirina = unos.nextInt();
 		int pocetak = 0;
 		int kraj = visina;
-		int[][] matrica = poljeZaIgru(visina);
+		int[][] matrica = poljeZaIgru(visina, sirina);
 		matrica = postaviMine(matrica, pocetak, kraj);
 		matrica = dodajKecinu(matrica);
 		return matrica;
@@ -148,7 +151,7 @@ public class Minesweeper {
 	
 	private static void igra(int[][] matrica) {
 		Scanner unos = new Scanner(System.in);
-		int[][] laznoPolje = poljeZaIgru(matrica.length);
+		int[][] laznoPolje = poljeZaIgru(matrica.length, matrica[0].length);
 		ispisiPolje(laznoPolje);
 		int x = -1, y = -1;
 		int brojac = 0;
