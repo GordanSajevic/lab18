@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public class Minesweeper {
 
+	/**
+	 * Kreira praznu matricu koja čini polje za igru
+	 * @return polje
+	 */
+	
 	public static int[][] poljeZaIgru()
 	{
 		
@@ -12,6 +17,11 @@ public class Minesweeper {
 		int[][] polje = new int[visina][sirina];
 		return polje;
 	}
+	
+	/**
+	 * Ispisuje zadanu matricu
+	 * @param matrica
+	 */
 	
 	private static void ispisiPolje(int[][] matrica) {
 		for(int i=0; i<matrica.length; i++)
@@ -26,10 +36,25 @@ public class Minesweeper {
 		System.out.println();
 	}
 	
+	/**
+	 * Vraća random broj za zadani početak i kraj
+	 * @param min
+	 * @param max
+	 * @return broj
+	 */
+	
 	private static int randomNumber(int min, int max) {
 		int broj = (int)(Math.random()*(max)) + min;
 		return broj;
 	}
+	
+	/**
+	 * Postavlja mine na prazno polje pomoću random brojeva i vraća polje saa minama
+	 * @param matrica
+	 * @param min
+	 * @param max
+	 * @return
+	 */
 	
 	private static int[][] postaviMine(int[][] matrica, int min, int max) {
 		double brojMina = (matrica.length*matrica[0].length)/3;
@@ -50,6 +75,12 @@ public class Minesweeper {
 		return matrica;
 		
 	}
+	
+	/**
+	 * Dodaje brojeve na članove matrice koji predstavljaju broj mina na susjednim poljima 
+	 * @param matrica
+	 * @return matrica
+	 */
 	
 	public static int[][] dodajKecinu(int[][] matrica)
 	{
@@ -95,20 +126,61 @@ public class Minesweeper {
 		return matrica;
 	}
 
-	public static void napraviPolje()
+	/**
+	 * Kreira polje za igru popunjeno minama
+	 * @return matrica
+	 */
+	
+	public static int[][] napraviPolje()
 	{
 		int pocetak = 0;
 		int kraj = 5;
 		int[][] matrica = poljeZaIgru();
 		matrica = postaviMine(matrica, pocetak, kraj);
-		dodajKecinu(matrica);
-		ispisiPolje(matrica);
+		matrica = dodajKecinu(matrica);
+		return matrica;
 	}
 	
+	/**
+	 * Funkcija predstavlja tok igre, tj. igra se završava kada igrač nagazi na minu, ili otkrije sva polja
+	 * @param matrica
+	 */
 	
-	public static void main(String[] args) {
-		napraviPolje();
+	private static void igra(int[][] matrica) {
+		Scanner unos = new Scanner(System.in);
+		int[][] laznoPolje = poljeZaIgru();
+		ispisiPolje(laznoPolje);
+		int x = -1, y = -1;
+		int brojac = 0;
+		do
+		{
+			System.out.println("Unesite koordinate: ");
+			x = unos.nextInt();
+			y = unos.nextInt();
+			laznoPolje[x][y] = matrica[x][y];
+			if (matrica[x][y] == -1)
+			{
+				System.out.println("BOOM! Preselio na ahiret!");
+				ispisiPolje(matrica);
+				break;
+			}
+			ispisiPolje(laznoPolje);
+			brojac++;
+			if (brojac == 17)
+			{
+				System.out.println("Čestitam, pobijedili ste!");
+				ispisiPolje(matrica);
+				break;
+			}
+		}while(matrica[x][y] != -1);
+		
+		
 	}
+	
 
+	public static void main(String[] args) {
+		int[][] matrica = napraviPolje();
+		igra(matrica);
+	}
 
 }
